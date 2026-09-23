@@ -12,9 +12,11 @@ if (!Number.isInteger(count) || count < 1) {
 } else {
   const subjects = readCommitSubjects(count);
 
+  console.log();
+
   for (const subject of subjects) {
     console.log(formatSubjectReport(subject));
   }
 
-  console.log(`\n${formatSummary(subjects)}`);
+  console.log(`\n${formatSummary(subjects)}\n`);
 }
