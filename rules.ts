@@ -18,8 +18,10 @@ export const imperativeVerbs = [
 
 // Verbs which hide the concrete changed object and action
 export const vagueVerbs = [
+  'Cleanup',
   'Improve',
   'Misc',
   'Refine',
+  'Tweak',
   'Update',
 ];
