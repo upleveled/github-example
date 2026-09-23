@@ -1,0 +1,4 @@
+{
+  "installDependencies": false,
+  "startCommand": "touch .npmrc && npx --yes pnpm@10 --config.manage-package-manager-versions=false --ignore-pnpmfile install --prod"
+}
