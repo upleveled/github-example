@@ -6,28 +6,37 @@ Running the program without any input checks the last 10 commit subjects:
 
 ```bash
 $ node index.ts
-✅ Add readme with app usage
-❌ Update vague verb list
-   vague verb "Update", name the changed object and action
-✅ Add GitHub Actions CI with TypeScript and ESLint checks
-❌ Adds git log reader and commit subject report
-   present-tense verb "Adds", use "Add"
-✅ Add commit subject rules and problem checks
-✅ Add Node.js project with ESLint config from eslint-config-upleveled
 
-4/6 commit subjects follow the rules
+  ✔  Trim readme CI logs, refresh program output transcripts
+  ✔  Switch commit subject report to rule names, symbols and color
+  ✔  Add .stackblitzrc from the command line cheatsheet
+  ✔  Add CI failure logs and real program output to readme
+  ✔  Add readme with app usage
+  ✖  Update vague verb list
+     no-vague-verb  Verb "Update" is vague, name the changed object and action
+  ✔  Add GitHub Actions CI with TypeScript and ESLint checks
+  ✖  Adds git log reader and commit subject report
+     imperative-verb  Verb "Adds" is present tense, use "Add"
+  ✔  Add commit subject rules and problem checks
+  ✔  Add Node.js project with ESLint config from eslint-config-upleveled
+
+  Checked 10 commit subjects: 8 passed, 2 failed
 ```
 
 Entering a number checks that many commit subjects:
 
 ```bash
-$ node index.ts 3
-✅ Add readme with app usage
-❌ Update vague verb list
-   vague verb "Update", name the changed object and action
-✅ Add GitHub Actions CI with TypeScript and ESLint checks
+$ node index.ts 6
 
-2/3 commit subjects follow the rules
+  ✔  Trim readme CI logs, refresh program output transcripts
+  ✔  Switch commit subject report to rule names, symbols and color
+  ✔  Add .stackblitzrc from the command line cheatsheet
+  ✔  Add CI failure logs and real program output to readme
+  ✔  Add readme with app usage
+  ✖  Update vague verb list
+     no-vague-verb  Verb "Update" is vague, name the changed object and action
+
+  Checked 6 commit subjects: 5 passed, 1 failed
 ```
 
 Entering anything else will print an error:
@@ -70,25 +79,18 @@ ESLint, Prettier and TypeScript configuration comes from [UpLeveled ESLint Confi
 
 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs TypeScript type checking (`pnpm tsc`) and linting (`pnpm eslint . --max-warnings 0`) on every push.
 
-CI fails on purpose: `formatSubjectReport()` in [`report.ts`](report.ts) concatenates `problems` (a `string[]`) onto a string instead of joining it, which ESLint reports as `@typescript-eslint/restrict-plus-operands`. Fixing this is the target of a pull request.
+CI fails on purpose: `formatSubjectReport()` in [`report.ts`](report.ts) concatenates the mapped problems (a `string[]`) onto a string instead of joining them, which ESLint reports as `@typescript-eslint/restrict-plus-operands`. Fixing this is the target of a pull request.
 
 ### CI failure logs
 
-GitHub Actions logs expire, so the failing `Lint with ESLint` step from [run 35921305065](https://github.com/upleveled/github-example/actions/runs/35921305065) is copied here:
+GitHub Actions logs expire, so the relevant lines of the failing `Lint with ESLint` step from [run 35922092102](https://github.com/upleveled/github-example/actions/runs/35922092102) are copied here:
 
 ```
-##[group]Run pnpm eslint . --max-warnings 0
-pnpm eslint . --max-warnings 0
-shell: /usr/bin/bash -e {0}
-env:
-  PNPM_HOME: /home/runner/setup-pnpm/node_modules/.bin
-##[endgroup]
-Pages directory cannot be found at /home/runner/work/github-example/github-example/pages or /home/runner/work/github-example/github-example/src/pages. If using a custom path, please configure with the `no-html-link-for-pages` rule in your eslint config file.
+$ pnpm eslint . --max-warnings 0
 
 /home/runner/work/github-example/github-example/report.ts
-##[error]  12:32  error  Invalid operand for a '+' operation. Operands must each be a number or string, allowing a string + any of: `any`, `boolean`, `null`, `RegExp`, `undefined`. Got `string[]`  @typescript-eslint/restrict-plus-operands
+  18:50  error  Invalid operand for a '+' operation. Operands must each be a number or string, allowing a string + any of: `any`, `boolean`, `null`, `RegExp`, `undefined`. Got `string[]`  @typescript-eslint/restrict-plus-operands
 
 ✖ 1 problem (1 error, 0 warnings)
-
-##[error]Process completed with exit code 1.
+Process completed with exit code 1.
 ```
