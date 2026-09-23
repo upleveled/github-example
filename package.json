@@ -1,0 +1,28 @@
+{
+  "name": "github-example",
+  "version": "1.0.0",
+  "description": "Node.js example app with failing ESLint check in GitHub Actions CI",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.5.1",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@12.5.1",
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^26.6.1",
+    "eslint": "^10.10.0",
+    "eslint-config-upleveled": "^10.0.4",
+    "prettier": "^3.9.7",
+    "typescript": "6.0.3"
+  }
+}
